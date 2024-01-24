@@ -128,7 +128,13 @@
               "projects/calipharma/src/assets"
             ],
             "styles": [
-              "projects/calipharma/src/styles.scss"
+              "projects/calipharma/src/styles.scss",
+              "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
+              "node_modules/prismjs/plugins/toolbar/prism-toolbar.css",
+              "projects/calipharma/src/assets/css/animate.min.css",
+              "projects/calipharma/src/assets/css/demo.css",
+              "projects/calipharma/src/assets/sass/core.scss",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },
