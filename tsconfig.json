@@ -17,6 +17,11 @@
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
     "moduleResolution": "node",
+    "paths": {
+      "sdk": [
+        "dist/sdk"
+      ]
+    },
     "importHelpers": true,
     "target": "es2020",
     "module": "es2020",
