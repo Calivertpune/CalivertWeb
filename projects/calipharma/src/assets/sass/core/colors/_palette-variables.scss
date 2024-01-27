@@ -1,8 +1,8 @@
 // Overrides user components-variables
-@import "~bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/functions";
 
 @import "../variables/variables";
-@import "~bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/variables";
 $white-color: (
   "base": #ffffff
 );

@@ -2,12 +2,12 @@
 @import '~swiper/swiper-bundle.min.css';
 
 // Core variables and mixins
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/mixins";
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/mixins";
 
 // Core variables and mixins overrides
 @import "core/variables/variables";
-@import "~bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/variables";
 
 // Mixins
 @import "core/mixins/buttons";
@@ -33,7 +33,7 @@
 
 @import "~perfect-scrollbar/css/perfect-scrollbar.css";
 @import "~prismjs/plugins/toolbar/prism-toolbar.css";
-@import "~prismjs/themes/prism-okaidia";
+@import "node_modules/prismjs/themes/prism-okaidia";
 @import '~@angular/cdk/overlay-prebuilt.css';
 @import "~@ng-select/ng-select/themes/default.theme.css";
 

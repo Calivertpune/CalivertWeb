@@ -122,6 +122,10 @@
             "main": "projects/calipharma/src/main.ts",
             "polyfills": "projects/calipharma/src/polyfills.ts",
             "tsConfig": "projects/calipharma/tsconfig.app.json",
+            "allowedCommonJsDependencies": [
+              "screenfull",
+              "jwt-check-expiry"
+            ],
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/calipharma/src/favicon.ico",
