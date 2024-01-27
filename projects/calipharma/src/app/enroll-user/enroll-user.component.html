@@ -1,0 +1,155 @@
+<section>
+  <div class="row mt-3">
+    <div class="col-6 text-left">
+      <div class="font-large-1">Enrolled User's</div>
+    </div>
+    <div class="col-6 text-right">
+      <button
+        type="button"
+        class="btn btn-primary btn-large mr-2"
+        (click)="openNewUserEnrollModel(addUserModal)"
+        id="create-protocol-btn"
+      >
+        <span class="d-flex align-items-center">
+          <i class="ft-plus mr-1"></i>
+          <span>Enroll New User</span>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <!-- ngx-datatable-filter -->
+            <fieldset class="form-group">
+              <label for="user-table-filter"
+                >Search:
+                <input
+                  id="user-table-filter"
+                  class="form-control form-control-sm d-inline-block width-200"
+                  type="text"
+                  placeholder="Filter the Name column..."
+                />
+              </label>
+            </fieldset>
+            <ngx-datatable
+              class="bootstrap core-bootstrap"
+              [columnMode]="ColumnMode.force"
+              [headerHeight]="50"
+              [footerHeight]="50"
+              rowHeight="auto"
+              [limit]="10"
+              [scrollbarH]="true"
+            >
+              <!-- <ngx-datatable-column name="Name" prop="name" [width]="150">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <span [id]="protocolNameIdByName(row?.name)">{{
+                    row?.name
+                  }}</span>
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column
+                name="Group"
+                prop="group_code"
+                [width]="100"
+              >
+              </ngx-datatable-column> -->
+            </ngx-datatable>
+            <!-- ngx-datatable-filter -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #addUserModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">New User Details</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="newUserEnrollmentForm">
+      <div class="form-row">
+        <div class="col-12">
+          <div class="form-group mb-2">
+            <label for="first-name-field">First Name* </label>
+            <input
+              formControlName="firstName"
+              type="text"
+              id="first-name-field"
+              class="form-control width-50-per"
+              name="first-name-field"
+              maxlength="100"
+            />
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="form-group mb-2">
+            <label for="last-name-field">Last Name* </label>
+            <input
+              formControlName="lastName"
+              type="text"
+              id="last-name-field"
+              class="form-control width-50-per"
+              name="last-name-field"
+              maxlength="100"
+            />
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="form-group mb-2">
+            <label for="phoneNo-field">Phone No*</label>
+            <input
+              formControlName="phoneNo"
+              type="tel"
+              id="phoneNo-field"
+              class="form-control width-50-per"
+              name="phoneNo-field"
+              maxlength="15"
+            />
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="form-group mb-2">
+            <label for="email-field">Email* </label>
+            <input
+              formControlName="email"
+              type="email"
+              id="email-field"
+              class="form-control width-50-per"
+              name="email-field"
+              maxlength="256"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      [disabled]="
+        newUserEnrollmentForm.invalid || newUserEnrollmentForm.pristine
+      "
+      type="button"
+      class="btn btn-primary"
+      (click)="enrollNewUSer()"
+    >
+      <i class="ft-plus mr-1"></i> Enroll
+    </button>
+  </div>
+</ng-template>
