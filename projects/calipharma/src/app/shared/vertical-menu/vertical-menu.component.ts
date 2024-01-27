@@ -6,28 +6,30 @@ import {
   ElementRef,
   AfterViewInit,
   ChangeDetectorRef,
-  HostListener
-} from "@angular/core";
-import { ROUTES } from "./vertical-menu-routes.config";
-import { HROUTES } from "../horizontal-menu/navigation-routes.config";
+  HostListener,
+} from '@angular/core';
+import { ROUTES } from './vertical-menu-routes.config';
+import { HROUTES } from '../horizontal-menu/navigation-routes.config';
 
-import { Router } from "@angular/router";
-import { customAnimations } from "../animations/custom-animations";
-import { DeviceDetectorService } from "ngx-device-detector";
-import { ConfigService } from "../services/config.service";
-import { Subscription } from "rxjs";
-import { LayoutService } from "../services/layout.service";
+import { Router } from '@angular/router';
+import { customAnimations } from '../animations/custom-animations';
+import { DeviceDetectorService } from 'ngx-device-detector';
+import { ConfigService } from '../services/config.service';
+import { Subscription } from 'rxjs';
+import { LayoutService } from '../services/layout.service';
+import { UserService } from 'projects/sdk/src/lib/services/user.service';
+import { UserRoles } from 'projects/sdk/src/lib/enums/user.roles';
 
 @Component({
-  selector: "app-sidebar",
-  templateUrl: "./vertical-menu.component.html",
-  animations: customAnimations
+  selector: 'app-sidebar',
+  templateUrl: './vertical-menu.component.html',
+  animations: customAnimations,
 })
 export class VerticalMenuComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild("toggleIcon") toggleIcon: ElementRef;
+  @ViewChild('toggleIcon') toggleIcon: ElementRef;
   public menuItems: any[];
   level: number = 0;
-  logoUrl = "assets/img/logo.png";
+  logoUrl = 'assets/img/logo.png';
   public config: any = {};
   protected innerWidth: any;
   layoutSub: Subscription;
@@ -41,7 +43,8 @@ export class VerticalMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     private layoutService: LayoutService,
     private configService: ConfigService,
     private cdr: ChangeDetectorRef,
-    private deviceService: DeviceDetectorService
+    private deviceService: DeviceDetectorService,
+    private _userService: UserService
   ) {
     this.config = this.configService.templateConf;
     this.innerWidth = window.innerWidth;
@@ -54,7 +57,7 @@ export class VerticalMenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.configSub = this.configService.templateConf$.subscribe(
-      templateConf => {
+      (templateConf) => {
         if (templateConf) {
           this.config = templateConf;
         }
@@ -64,15 +67,15 @@ export class VerticalMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     );
 
     this.layoutSub = this.layoutService.overlaySidebarToggle$.subscribe(
-      collapse => {
-        if (this.config.layout.menuPosition === "Side") {
+      (collapse) => {
+        if (this.config.layout.menuPosition === 'Side') {
           this.collapseSidebar = collapse;
         }
       }
     );
   }
 
-  @HostListener("window:resize", ["$event"])
+  @HostListener('window:resize', ['$event'])
   onWindowResize(event) {
     if (this.resizeTimeout) {
       clearTimeout(this.resizeTimeout);
@@ -87,21 +90,21 @@ export class VerticalMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   loadLayout() {
-    if (this.config.layout.menuPosition === "Top") {
+    if (this.config.layout.menuPosition === 'Top') {
       // Horizontal Menu
       if (this.innerWidth < 1200) {
         // Screen size < 1200
         this.menuItems = HROUTES;
       }
-    } else if (this.config.layout.menuPosition === "Side") {
+    } else if (this.config.layout.menuPosition === 'Side') {
       // Vertical Menu{
       this.menuItems = ROUTES;
     }
 
-    if (this.config.layout.sidebar.backgroundColor === "white") {
-      this.logoUrl = "assets/img/logo-dark.png";
+    if (this.config.layout.sidebar.backgroundColor === 'white') {
+      this.logoUrl = 'assets/img/logo-dark.png';
     } else {
-      this.logoUrl = "assets/img/logo.png";
+      this.logoUrl = 'assets/img/logo.png';
     }
 
     if (this.config.layout.sidebar.collapsed) {
@@ -121,9 +124,9 @@ export class VerticalMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     }, 300);
   }
 
-  fireRefreshEventOnWindow = function() {
-    const evt = document.createEvent("HTMLEvents");
-    evt.initEvent("resize", true, false);
+  fireRefreshEventOnWindow = function () {
+    const evt = document.createEvent('HTMLEvents');
+    evt.initEvent('resize', true, false);
     window.dispatchEvent(evt);
   };
 
@@ -149,5 +152,11 @@ export class VerticalMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.configSub) {
       this.configSub.unsubscribe();
     }
+  }
+
+  isCurrentRoleNotInExclusionList(roleExclusionList: Array<UserRoles>) {
+    return roleExclusionList.some((role) => {
+      return this._userService.userInfo.roleList?.includes(role);
+    });
   }
 }

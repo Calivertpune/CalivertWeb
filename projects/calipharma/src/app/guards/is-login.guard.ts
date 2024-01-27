@@ -7,7 +7,7 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { StorageProviderService } from '../services/storage-provider.service';
+import { StorageProviderService } from '../../../../sdk/src/lib/services/storage-provider.service';
 import { USER_TOKEN_KEY } from 'projects/sdk/src/lib/constants/storage.items';
 import isJwtTokenExpired from 'jwt-check-expiry';
 import { LOGIN_PATH } from 'projects/sdk/src/lib/constants/path.names';
