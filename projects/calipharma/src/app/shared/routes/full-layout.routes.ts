@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { HOME_PATH } from 'projects/sdk/src/lib/constants/path.names';
 import { IsLoginGuard } from '../../guards/is-login.guard';
 import { ENROLL_USER_PATH } from 'projects/sdk/src/lib/constants/path.names';
+import { IsDefaultPasswordChangedGuard } from '../../guards/is-default-password-changed.guard';
+import { IsCanSeeEnrollUserPageGuard } from '../../guards/is-can-see-enroll-user-page.guard';
 
 export const Full_ROUTES: Routes = [
   {
@@ -10,7 +12,7 @@ export const Full_ROUTES: Routes = [
       import('../../home/home.component').then(
         (homeModule) => homeModule.HomeComponent
       ),
-    canActivate: [IsLoginGuard],
+    canActivate: [IsLoginGuard, IsDefaultPasswordChangedGuard],
   },
   {
     path: `${ENROLL_USER_PATH}`,
@@ -18,6 +20,10 @@ export const Full_ROUTES: Routes = [
       import('../../enroll-user/enroll-user.component').then(
         (enrollUserModule) => enrollUserModule.EnrollUserComponent
       ),
-    canActivate: [IsLoginGuard],
+    canActivate: [
+      IsLoginGuard,
+      IsCanSeeEnrollUserPageGuard,
+      IsDefaultPasswordChangedGuard,
+    ],
   },
 ];
