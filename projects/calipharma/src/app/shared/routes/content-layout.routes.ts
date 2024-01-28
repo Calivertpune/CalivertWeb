@@ -1,5 +1,8 @@
 import { Routes, RouterModule } from '@angular/router';
-import { LOGIN_PATH } from '../../../../../sdk/src/lib/constants/path.names';
+import {
+  FORGET_PASSWORD_PATH,
+  LOGIN_PATH,
+} from '../../../../../sdk/src/lib/constants/path.names';
 import { IsCanSeeLoginPageGuard } from '../../guards/is-can-see-login-page.guard';
 import { CHANGE_DEFAULT_PASSWORD_PATH } from 'projects/sdk/src/lib/constants/path.names';
 import { IsLoginGuard } from '../../guards/is-login.guard';
@@ -26,5 +29,12 @@ export const CONTENT_ROUTES: Routes = [
           changePasswordModule.ChangeDefaultPasswordComponent
       ),
     canActivate: [IsLoginGuard, IsCanSeeDefaultPasswordPageGuard],
+  },
+  {
+    path: `${FORGET_PASSWORD_PATH}`,
+    loadComponent: () =>
+      import('../../forget-password/forget-password.component').then(
+        (forgetPasswordModule) => forgetPasswordModule.ForgetPasswordComponent
+      ),
   },
 ];
