@@ -10,12 +10,12 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ValidatorsService } from '../shared/services/validators.service';
-import { LoginService } from '../services/login.service';
 import { UserPasswordCredentials } from 'projects/sdk/src/lib/interfaces/user-passwords.credentials';
 import { first } from 'rxjs';
 import { HOME_PATH } from 'projects/sdk/src/lib/constants/path.names';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _router: Router,
-    private _loginService: LoginService,
+    private _authService: AuthService,
     private _spinnerService: NgxSpinnerService,
     private _toastrService: ToastrService
   ) {}
@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
       password: password!,
     };
     this._spinnerService.show();
-    this._loginService
+    this._authService
       .login(USER_CREDENTIAL)
       .pipe(first())
       .subscribe({

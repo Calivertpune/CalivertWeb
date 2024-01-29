@@ -9,7 +9,7 @@ import { HttpProviderService } from 'projects/sdk/src/lib/services/http-provider
 @Injectable({
   providedIn: 'root',
 })
-export class LoginService {
+export class AuthService {
   constructor(
     private _httpProviderService: HttpProviderService,
     @Inject(ENVIRONMENT_TOKEN) private _environmentToken: Environment
@@ -18,5 +18,10 @@ export class LoginService {
   public login(userCred: UserPasswordCredentials) {
     const ENDPOINT = `${this._environmentToken.apiBaseUrl}/login`;
     return this._httpProviderService.post(ENDPOINT, userCred);
+  }
+
+  public forgetPassword(email: string) {
+    const ENDPOINT = `${this._environmentToken.apiBaseUrl}/forgetPassword`;
+    return this._httpProviderService.post(ENDPOINT, email);
   }
 }
